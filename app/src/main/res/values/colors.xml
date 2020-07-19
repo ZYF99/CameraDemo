@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#3F51B5</color>
+    <color name="colorPrimaryDark">#303F9F</color>
+    <color name="colorAccent">#FF4081</color>
+    <color name="black">#000000</color>
+    <color name="white">#ffffff</color>
+    <color name="Spaire">#CDCDB4</color>
+    <color name="btn">#449dd5</color>
+    <color name="green">#5dc534</color>
+
+    <color name="blue">#1d76d9</color>
+    <color name="gray">#e0e0e0</color>
+    <color name="black_gray">#6D6D6D</color>
+    <color name="input_gray">#b5b5b8</color>
+    <color name="gray_level1">#cccccc</color>
+    <color name="gray_level2">#dadadd</color>
+    <color name="gray_level3">#f0eff5</color>
+    <color name="gray_text">#adadad</color>
+    <color name="black_txt">#000000</color>
+    <color name="black_text">#333333</color>
+
+
+
+
+</resources>

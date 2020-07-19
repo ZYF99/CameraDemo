@@ -1,0 +1,32 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="xyz.anndou.myapplication.MainActivity">
+
+    <item
+        android:id="@+id/action_show_marker"
+        android:orderInCategory="100"
+        android:title="显示标点"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/action_show_heat"
+        android:orderInCategory="100"
+        android:title="显示热力图"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/action_show_light"
+        android:orderInCategory="100"
+        android:title="显示灯"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/action_show_draw"
+        android:orderInCategory="100"
+        android:title="标点图层"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/action_show_draw1"
+        android:orderInCategory="100"
+        android:title="其他图层"
+        app:showAsAction="never" />
+
+</menu>

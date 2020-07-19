@@ -1,0 +1,215 @@
+ECLIPSE ANDROID PROJECT IMPORT SUMMARY
+======================================
+
+Ignored Files:
+--------------
+The following files were *not* copied into the new Gradle project; you
+should evaluate whether these are still needed in your project and if
+so manually move them:
+
+* CamerDemo\
+* CamerDemo\.classpath
+* CamerDemo\.git\
+* CamerDemo\.git\HEAD
+* CamerDemo\.git\config
+* CamerDemo\.git\description
+* CamerDemo\.git\hooks\
+* CamerDemo\.git\hooks\applypatch-msg.sample
+* CamerDemo\.git\hooks\commit-msg.sample
+* CamerDemo\.git\hooks\fsmonitor-watchman.sample
+* CamerDemo\.git\hooks\post-update.sample
+* CamerDemo\.git\hooks\pre-applypatch.sample
+* CamerDemo\.git\hooks\pre-commit.sample
+* CamerDemo\.git\hooks\pre-merge-commit.sample
+* CamerDemo\.git\hooks\pre-push.sample
+* CamerDemo\.git\hooks\pre-rebase.sample
+* CamerDemo\.git\hooks\pre-receive.sample
+* CamerDemo\.git\hooks\prepare-commit-msg.sample
+* CamerDemo\.git\hooks\update.sample
+* CamerDemo\.git\index
+* CamerDemo\.git\info\
+* CamerDemo\.git\info\exclude
+* CamerDemo\.git\logs\
+* CamerDemo\.git\logs\HEAD
+* CamerDemo\.git\logs\refs\
+* CamerDemo\.git\logs\refs\heads\
+* CamerDemo\.git\logs\refs\heads\master
+* CamerDemo\.git\logs\refs\remotes\
+* CamerDemo\.git\logs\refs\remotes\origin\
+* CamerDemo\.git\logs\refs\remotes\origin\HEAD
+* CamerDemo\.git\objects\
+* CamerDemo\.git\objects\pack\
+* CamerDemo\.git\objects\pack\pack-eee70ae0c6e8f0f2966c7ab0f5052ac02c1b2cc4.idx
+* CamerDemo\.git\objects\pack\pack-eee70ae0c6e8f0f2966c7ab0f5052ac02c1b2cc4.pack
+* CamerDemo\.git\packed-refs
+* CamerDemo\.git\refs\
+* CamerDemo\.git\refs\heads\
+* CamerDemo\.git\refs\heads\master
+* CamerDemo\.git\refs\remotes\
+* CamerDemo\.git\refs\remotes\origin\
+* CamerDemo\.git\refs\remotes\origin\HEAD
+* CamerDemo\.project
+* CamerDemo\.settings\
+* CamerDemo\.settings\org.eclipse.jdt.core.prefs
+* CamerDemo\AndroidManifest.xml
+* CamerDemo\bin\
+* CamerDemo\bin\AndroidManifest.xml
+* CamerDemo\bin\CameraDemo.apk
+* CamerDemo\bin\classes.dex
+* CamerDemo\bin\classes\
+* CamerDemo\bin\classes\com\
+* CamerDemo\bin\classes\com\example\
+* CamerDemo\bin\classes\com\example\camerademo\
+* CamerDemo\bin\classes\com\example\camerademo\BuildConfig.class
+* CamerDemo\bin\classes\com\example\camerademo\DBHelper.class
+* CamerDemo\bin\classes\com\example\camerademo\DBManager.class
+* CamerDemo\bin\classes\com\example\camerademo\ForgotInfo_activity.class
+* CamerDemo\bin\classes\com\example\camerademo\Login_Activity$1.class
+* CamerDemo\bin\classes\com\example\camerademo\Login_Activity$2.class
+* CamerDemo\bin\classes\com\example\camerademo\Login_Activity.class
+* CamerDemo\bin\classes\com\example\camerademo\MapActivity$1.class
+* CamerDemo\bin\classes\com\example\camerademo\MapActivity$2.class
+* CamerDemo\bin\classes\com\example\camerademo\MapActivity.class
+* CamerDemo\bin\classes\com\example\camerademo\PreviewActivity.class
+* CamerDemo\bin\classes\com\example\camerademo\R$attr.class
+* CamerDemo\bin\classes\com\example\camerademo\R$color.class
+* CamerDemo\bin\classes\com\example\camerademo\R$dimen.class
+* CamerDemo\bin\classes\com\example\camerademo\R$drawable.class
+* CamerDemo\bin\classes\com\example\camerademo\R$id.class
+* CamerDemo\bin\classes\com\example\camerademo\R$layout.class
+* CamerDemo\bin\classes\com\example\camerademo\R$menu.class
+* CamerDemo\bin\classes\com\example\camerademo\R$string.class
+* CamerDemo\bin\classes\com\example\camerademo\R$style.class
+* CamerDemo\bin\classes\com\example\camerademo\R.class
+* CamerDemo\bin\classes\com\example\camerademo\Register_Activity$1.class
+* CamerDemo\bin\classes\com\example\camerademo\Register_Activity$2.class
+* CamerDemo\bin\classes\com\example\camerademo\Register_Activity$3.class
+* CamerDemo\bin\classes\com\example\camerademo\Register_Activity$4.class
+* CamerDemo\bin\classes\com\example\camerademo\Register_Activity.class
+* CamerDemo\bin\classes\com\example\camerademo\UsersInfo.class
+* CamerDemo\bin\classes\com\example\camerademo\UsersInfo_activity.class
+* CamerDemo\bin\dexedLibs\
+* CamerDemo\bin\dexedLibs\TencentMapSDK_Raster_v_1.3.4.1-efbb2680ac8193fe145cfd64ab3b02d8.jar
+* CamerDemo\bin\dexedLibs\android-support-v4-4a70265b2d3301b979c54c0d45ecd5cb.jar
+* CamerDemo\bin\res\
+* CamerDemo\bin\res\crunch\
+* CamerDemo\bin\res\crunch\drawable-hdpi\
+* CamerDemo\bin\res\crunch\drawable-hdpi\camera.png
+* CamerDemo\bin\res\crunch\drawable-hdpi\gps_point.png
+* CamerDemo\bin\res\crunch\drawable-hdpi\ic_launcher.png
+* CamerDemo\bin\res\crunch\drawable-mdpi\
+* CamerDemo\bin\res\crunch\drawable-mdpi\ic_launcher.png
+* CamerDemo\bin\res\crunch\drawable-xhdpi\
+* CamerDemo\bin\res\crunch\drawable-xhdpi\ic_launcher.png
+* CamerDemo\bin\res\crunch\drawable-xxhdpi\
+* CamerDemo\bin\res\crunch\drawable-xxhdpi\ic_launcher.png
+* CamerDemo\bin\res\crunch\drawable\
+* CamerDemo\bin\res\crunch\drawable\invisible.png
+* CamerDemo\bin\res\crunch\drawable\people_fill.png
+* CamerDemo\bin\res\crunch\drawable\visible.png
+* CamerDemo\bin\resources.ap_
+* CamerDemo\gen\
+* CamerDemo\gen\com\
+* CamerDemo\gen\com\example\
+* CamerDemo\gen\com\example\camerademo\
+* CamerDemo\gen\com\example\camerademo\BuildConfig.java
+* CamerDemo\gen\com\example\camerademo\R.java
+* CamerDemo\ic_launcher-web.png
+* CamerDemo\libs\
+* CamerDemo\libs\TencentMapSDK_Raster_v_1.3.4.1.jar
+* CamerDemo\libs\android-support-v4.jar
+* CamerDemo\proguard-project.txt
+* CamerDemo\project.properties
+* CamerDemo\res\
+* CamerDemo\res\drawable-hdpi\
+* CamerDemo\res\drawable-hdpi\camera.png
+* CamerDemo\res\drawable-hdpi\gps_point.png
+* CamerDemo\res\drawable-hdpi\ic_launcher.png
+* CamerDemo\res\drawable-mdpi\
+* CamerDemo\res\drawable-mdpi\ic_launcher.png
+* CamerDemo\res\drawable-xhdpi\
+* CamerDemo\res\drawable-xhdpi\ic_launcher.png
+* CamerDemo\res\drawable-xxhdpi\
+* CamerDemo\res\drawable-xxhdpi\ic_launcher.png
+* CamerDemo\res\drawable\
+* CamerDemo\res\drawable\background.jpg
+* CamerDemo\res\drawable\btn_border.xml
+* CamerDemo\res\drawable\buttonstyle.xml
+* CamerDemo\res\drawable\ic_launcher_background.xml
+* CamerDemo\res\drawable\invisible.png
+* CamerDemo\res\drawable\layout_border.xml
+* CamerDemo\res\drawable\people_fill.png
+* CamerDemo\res\drawable\visible.png
+* CamerDemo\res\layout\
+* CamerDemo\res\layout\activity_main.xml
+* CamerDemo\res\layout\activity_map.xml
+* CamerDemo\res\layout\activity_preview.xml
+* CamerDemo\res\layout\forgotinfo_activity.xml
+* CamerDemo\res\layout\register_activity.xml
+* CamerDemo\res\layout\userinfo_activity.xml
+* CamerDemo\res\menu\
+* CamerDemo\res\menu\main.xml
+* CamerDemo\res\values-v11\
+* CamerDemo\res\values-v11\styles.xml
+* CamerDemo\res\values-v14\
+* CamerDemo\res\values-v14\styles.xml
+* CamerDemo\res\values-w820dp\
+* CamerDemo\res\values-w820dp\dimens.xml
+* CamerDemo\res\values\
+* CamerDemo\res\values\colors.xml
+* CamerDemo\res\values\dimens.xml
+* CamerDemo\res\values\strings.xml
+* CamerDemo\res\values\styles.xml
+* CamerDemo\src\
+* CamerDemo\src\com\
+* CamerDemo\src\com\example\
+* CamerDemo\src\com\example\camerademo\
+* CamerDemo\src\com\example\camerademo\DBHelper.java
+* CamerDemo\src\com\example\camerademo\DBManager.java
+* CamerDemo\src\com\example\camerademo\ForgotInfo_activity.java
+* CamerDemo\src\com\example\camerademo\Login_Activity.java
+* CamerDemo\src\com\example\camerademo\MapActivity.java
+* CamerDemo\src\com\example\camerademo\PreviewActivity.java
+* CamerDemo\src\com\example\camerademo\Register_Activity.java
+* CamerDemo\src\com\example\camerademo\UsersInfo.java
+* CamerDemo\src\com\example\camerademo\UsersInfo_activity.java
+* ic_launcher-web.png
+* proguard-project.txt
+
+Replaced Jars with Dependencies:
+--------------------------------
+The importer recognized the following .jar files as third party
+libraries and replaced them with Gradle dependencies instead. This has
+the advantage that more explicit version information is known, and the
+libraries can be updated automatically. However, it is possible that
+the .jar file in your project was of an older version than the
+dependency we picked, which could render the project not compileable.
+You can disable the jar replacement in the import wizard and try again:
+
+android-support-v4.jar => com.android.support:support-v4:23.4.0
+
+Moved Files:
+------------
+Android Gradle projects use a different directory structure than ADT
+Eclipse projects. Here's how the projects were restructured:
+
+* AndroidManifest.xml => app\src\main\AndroidManifest.xml
+* assets\ => app\src\main\assets
+* libs\TencentMapSDK_Raster_v_1.3.4.1.jar => app\libs\TencentMapSDK_Raster_v_1.3.4.1.jar
+* res\ => app\src\main\res\
+* src\ => app\src\main\java\
+
+Next Steps:
+-----------
+You can now build the project. The Gradle project needs network
+connectivity to download dependencies.
+
+Bugs:
+-----
+If for some reason your project does not build, and you determine that
+it is due to a bug or limitation of the Eclipse to Gradle importer,
+please file a bug at http://b.android.com with category
+Component-Tools.
+
+(This import summary is for your information only, and can be deleted
+after import once you are satisfied with the results.)

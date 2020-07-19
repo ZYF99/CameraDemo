@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	android:id="@+id/layout_demo"
+	android:layout_width="match_parent"
+	android:layout_height="match_parent">
+
+	<LinearLayout
+		android:id="@+id/ll_camera_info"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:layout_alignParentLeft="true"
+		android:orientation="vertical">
+
+		<TextView
+			android:id="@+id/tv_camera_title"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:gravity="center_vertical"
+			android:hint="123" />
+
+		<LinearLayout
+			android:id="@+id/ll_position"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:layout_alignParentLeft="true"
+			android:orientation="horizontal">
+
+			<TextView
+				android:id="@+id/tv_camera_longitude"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_weight="1"
+				android:gravity="center_vertical"
+				android:hint="longitude" />
+
+			<TextView
+				android:id="@+id/tv_camera_latitude"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_weight="1"
+				android:gravity="center_vertical"
+				android:hint="latitude" />
+		</LinearLayout>
+	</LinearLayout>
+
+	<SeekBar
+		android:id="@+id/sb_demo_process"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:layout_below="@+id/sv_demo_view"
+		android:layout_alignParentLeft="true" />
+
+	<Button
+		android:id="@+id/bt_demo_file"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_below="@+id/sb_demo_process"
+		android:layout_alignParentLeft="true"
+		android:text="@string/demo_activity_file" />
+
+	<EditText
+		android:id="@+id/et_demo_file"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_alignTop="@+id/bt_demo_file"
+		android:layout_alignParentRight="true"
+		android:layout_toRightOf="@+id/bt_demo_file"
+		android:ems="10"
+		android:hint="File path"
+		android:singleLine="true">
+
+		<requestFocus />
+	</EditText>
+
+	<SurfaceView
+		android:id="@+id/sv_demo_view"
+		android:layout_width="350dp"
+		android:layout_height="250dp"
+		android:layout_below="@id/ll_camera_info"
+		android:layout_alignParentLeft="true" />
+
+	<Button
+		android:id="@+id/bt_demo_mode"
+		android:layout_width="96dp"
+		android:layout_height="wrap_content"
+		android:layout_below="@+id/bt_demo_file"
+		android:layout_alignParentLeft="true"
+		android:text="@string/demo_activity_mode_stream" />
+
+	<Button
+		android:id="@+id/bt_demo_stop"
+		android:layout_width="96dp"
+		android:layout_height="wrap_content"
+		android:layout_alignBaseline="@+id/bt_demo_play"
+		android:layout_alignBottom="@+id/bt_demo_play"
+		android:layout_toRightOf="@+id/bt_demo_play"
+		android:text="@string/demo_activity_stop" />
+
+	<Button
+		android:id="@+id/bt_demo_play"
+		android:layout_width="96dp"
+		android:layout_height="wrap_content"
+		android:layout_alignBaseline="@+id/bt_demo_mode"
+		android:layout_alignBottom="@+id/bt_demo_mode"
+		android:layout_toRightOf="@+id/bt_demo_mode"
+		android:text="@string/demo_activity_play" />
+
+	<Button
+		android:id="@+id/bt_demo_quality"
+		android:layout_width="96dp"
+		android:layout_height="wrap_content"
+		android:layout_below="@+id/bt_demo_fast"
+		android:layout_alignParentLeft="true"
+		android:text="@string/demo_activity_quality" />
+
+	<Button
+		android:id="@+id/bt_demo_capture"
+		android:layout_width="160dp"
+		android:layout_height="wrap_content"
+		android:layout_alignBaseline="@+id/bt_demo_quality"
+		android:layout_alignLeft="@+id/et_demo_file"
+		android:layout_alignBottom="@+id/bt_demo_quality"
+		android:text="@string/demo_activity_capture" />
+
+	<Button
+		android:id="@+id/bt_demo_SnapPict"
+		android:layout_width="96dp"
+		android:layout_height="wrap_content"
+		android:layout_alignBaseline="@+id/bt_demo_stop"
+		android:layout_alignBottom="@+id/bt_demo_stop"
+		android:layout_toRightOf="@+id/bt_demo_stop"
+		android:text="@string/demo_activity_snappitcure" />
+
+	<Button
+		android:id="@+id/bt_demo_normal"
+		android:layout_width="96dp"
+		android:layout_height="wrap_content"
+		android:layout_below="@+id/bt_demo_stop"
+		android:layout_toRightOf="@+id/bt_demo_stop"
+		android:text="@string/demo_activity_normal" />
+
+	<Button
+		android:id="@+id/bt_demo_slow"
+		android:layout_width="96dp"
+		android:layout_height="wrap_content"
+		android:layout_alignBaseline="@+id/bt_demo_normal"
+		android:layout_alignBottom="@+id/bt_demo_normal"
+		android:layout_toRightOf="@+id/bt_demo_play"
+		android:text="@string/demo_activity_slow" />
+
+	<Button
+		android:id="@+id/bt_demo_fast"
+		android:layout_width="96dp"
+		android:layout_height="wrap_content"
+		android:layout_below="@+id/bt_demo_mode"
+		android:layout_toRightOf="@+id/bt_demo_mode"
+		android:text="@string/demo_activity_fast" />
+
+	<Button
+		android:id="@+id/bt_demo_decode_type"
+		android:layout_width="96dp"
+		android:layout_height="wrap_content"
+		android:layout_above="@+id/bt_demo_quality"
+		android:layout_alignParentLeft="true"
+		android:text="@string/demo_activity_decode_sw" />
+
+</RelativeLayout>
