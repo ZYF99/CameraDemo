@@ -31,6 +31,7 @@ import com.example.camerademo.bean.postionListLight;
 import com.google.gson.Gson;
 import com.tencent.map.sdk.utilities.heatmap.Gradient;
 import com.tencent.map.sdk.utilities.heatmap.HeatMapTileProvider;
+import com.tencent.tencentmap.mapsdk.maps.CameraUpdate;
 import com.tencent.tencentmap.mapsdk.maps.CameraUpdateFactory;
 import com.tencent.tencentmap.mapsdk.maps.Projection;
 import com.tencent.tencentmap.mapsdk.maps.SupportMapFragment;
@@ -130,6 +131,10 @@ public class MainActivity extends FragmentActivity {
         initCluster();
     }
 
+    final List<Marker> markerItems = new ArrayList<>();
+    final List<Marker> lightItems = new ArrayList<>();
+    final List<MarkerClusterItem> markerClusterItems = new ArrayList<>();
+
     private void initCluster() {
         // 实例化点聚合管理者
         mClusterManager = new ClusterManager<MarkerClusterItem>(this, tencentMap);
@@ -148,6 +153,57 @@ public class MainActivity extends FragmentActivity {
         // 定义聚合的分段，当超过5个不足10个的时候，显示5+，其他分段同理
         renderer.setBuckets(new int[]{5, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100, 110, 120, 130, 140, 150, 160});
         mClusterManager.setRenderer(renderer);
+        tencentMap.enableMultipleInfowindow(true);
+        tencentMap.setOnCameraChangeListener(new TencentMap.OnCameraChangeListener() {
+            @Override
+            public void onCameraChange(CameraPosition cameraPosition) {
+
+            }
+
+            @RequiresApi(api = Build.VERSION_CODES.N)
+            @Override
+            public void onCameraChangeFinished(CameraPosition cameraPosition) {
+                mClusterManager.onCameraChangeFinished(cameraPosition);
+                if (cameraPosition.zoom >= 18.0) {
+                    markerItems.forEach(new Consumer<Marker>() {
+                        @Override
+                        public void accept(Marker marker) {
+                            marker.getTitle();
+
+                            marker.setVisible(true);
+                            if(showbdTcbt){//显示标题
+                                Log.d("!!!!!!!",""+marker.isInfoWindowShown()+"!!!!!!"+marker.isInfoWindowEnable());
+                                marker.showInfoWindow();// 设置默认显示一个infoWindow
+                            }
+                            tencentMap.addMarker(marker.getOptions());
+                        }
+                    });
+                    if(showbdTctb){//显示灯
+                        lightItems.forEach(new Consumer<Marker>() {
+                            @Override
+                            public void accept(Marker marker) {
+                                tencentMap.addMarker(marker.getOptions());
+                            }
+                        });
+                    }
+
+                } else {
+                    tencentMap.clearAllOverlays();
+                    if(isShow){
+                        markerClusterItems.forEach(new Consumer<MarkerClusterItem>() {
+                            @RequiresApi(api = Build.VERSION_CODES.N)
+                            @Override
+                            public void accept(final MarkerClusterItem markerClusterItem) {
+                                mClusterManager.addItem(markerClusterItem);
+                            }
+                        });
+                    }
+                }
+                if(isShow){
+                    mClusterManager.cluster();
+                }
+            }
+        });
 
     }
 
@@ -289,7 +345,6 @@ public class MainActivity extends FragmentActivity {
 
     }
 
-
     private void findCurrentViewPoint2() {
         for (int i = 0; i < lights.size(); i++) {
             Marker marker = tencentMap.addMarker(new MarkerOptions()
@@ -302,128 +357,31 @@ public class MainActivity extends FragmentActivity {
         }
     }
 
+
     private void findCurrentViewPoint3() {
-        final List<Marker> markerItems = new ArrayList<>();
         if (mIsClean && !showbdTctb && !showqttc) {
             tencentMap.clearAllOverlays();
         }
-        final List<MarkerClusterItem> items = new ArrayList<>();
-        for (int i = 0; i < latLngs.size(); i++) {
-            LatLng latLng;
+        if ((markerItems.isEmpty() && markerClusterItems.isEmpty()) || mIsClean) {
+            for (int i = 0; i < latLngs.size(); i++) {
+/*                if (!polygonCon(new LatLng(latLngs.get(i).getDzwdValue(), latLngs.get(i).getDzjdValue()))) {
+                    continue;
+                }*/
 
-/*
-            try {
-                latLng = new LatLng(latLngs.get(i).getDzwdValue(), latLngs.get(i).getDzjdValue());
-            } catch (Exception e) {
-                continue;
+                final Marker marker = tencentMap.addMarker(new MarkerOptions()
+                        .tag(latLngs.get(i))
+                        .position(new LatLng(latLngs.get(i).getDzwdValue(), latLngs.get(i).getDzjdValue()))
+                        .title(latLngs.get(i).getTd_MC())
+                        .anchor(1, 1)
+                        .icon(BitmapDescriptorFactory.fromResource(R.drawable.camera)));
+                marker.showInfoWindow();// 设置默认显示一个infoWindow
+                markerItems.add(marker);
+                markerClusterItems.add(new MarkerClusterItem(latLngs.get(i).getDzwdValue(), latLngs.get(i).getDzjdValue()));
             }
-            if (!polygonCon(latLng)) {
-                continue;
-            }
-*/
-
-            items.add(new MarkerClusterItem(latLngs.get(i).getDzwdValue(), latLngs.get(i).getDzjdValue()));
-            final Marker marker = tencentMap.addMarker(new MarkerOptions()
-                    .tag(latLngs.get(i))
-                    .position(new LatLng(latLngs.get(i).getDzwdValue(), latLngs.get(i).getDzjdValue()))
-                    .title(latLngs.get(i).getTd_MC())
-                    .anchor(1, 1)
-                    .icon(BitmapDescriptorFactory.fromResource(R.drawable.camera)));
-            markerItems.add(marker);
-            marker.showInfoWindow();// 设置默认显示一个infoWindow
-            marker.setVisible(false);
-
+            mClusterManager.addItems(markerClusterItems);
         }
-        mClusterManager.addItems(items);
-
-        tencentMap.setOnMarkerClickListener(mClusterManager);
-        tencentMap.setOnCameraChangeListener(new TencentMap.OnCameraChangeListener() {
-            @Override
-            public void onCameraChange(CameraPosition cameraPosition) {
-
-            }
-
-            @RequiresApi(api = Build.VERSION_CODES.N)
-            @Override
-            public void onCameraChangeFinished(CameraPosition cameraPosition) {
-                mClusterManager.onCameraChangeFinished(cameraPosition);
-
-                if (cameraPosition.zoom >= 15.8f) {
-                    items.forEach(new Consumer<MarkerClusterItem>() {
-                        @RequiresApi(api = Build.VERSION_CODES.N)
-                        @Override
-                        public void accept(final MarkerClusterItem markerClusterItem) {
-                            mClusterManager.removeItem(markerClusterItem);
-
-                            markerItems.stream().filter(new Predicate<Marker>() {
-                                @Override
-                                public boolean test(Marker marker) {
-                                    return marker.getPosition().longitude == markerClusterItem.getPosition().longitude
-                                            && marker.getPosition().latitude == markerClusterItem.getPosition().latitude;
-                                }
-                            }).collect(Collectors.<Marker>toList()).get(0).setVisible(true);
-                        }
-                    });
-                    //tencentMap.moveCamera(CameraUpdateFactory.newLatLngZoom(tencentMap.getCameraPosition().target, tencentMap.getCameraPosition().zoom+0.1f));
-/*                    cluster.getItems().forEach(new Consumer<MarkerClusterItem>() {
-                        @Override
-                        public void accept(final MarkerClusterItem markerClusterItem) {
-                            mClusterManager.removeItem(markerClusterItem);
-                            tencentMap.moveCamera(CameraUpdateFactory.newLatLngZoom(tencentMap.getCameraPosition().target, 16f));
-                            markerItems.stream().filter(new Predicate<Marker>() {
-                                @Override
-                                public boolean test(Marker marker) {
-                                    return marker.getPosition().longitude == markerClusterItem.getPosition().longitude
-                                            && marker.getPosition().latitude == markerClusterItem.getPosition().latitude;
-                                }
-                            }).collect(Collectors.<Marker>toList()).get(0).setVisible(true);
-                        }
-                    });*/
-                } else{
-                    items.forEach(new Consumer<MarkerClusterItem>() {
-                        @RequiresApi(api = Build.VERSION_CODES.N)
-                        @Override
-                        public void accept(final MarkerClusterItem markerClusterItem) {
-                            mClusterManager.addItem(markerClusterItem);
-                            markerItems.stream().filter(new Predicate<Marker>() {
-                                @Override
-                                public boolean test(Marker marker) {
-                                    return marker.getPosition().longitude == markerClusterItem.getPosition().longitude
-                                            && marker.getPosition().latitude == markerClusterItem.getPosition().latitude;
-                                }
-                            }).collect(Collectors.<Marker>toList()).get(0).setVisible(false);
-                        }
-                    });
-                }
-
-            }
-        });
-
-        tencentMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(22.5178400000, 113.0404500000), tencentMap.getCameraPosition().zoom-0.2f));
-
-        mClusterManager.setOnClusterClickListener(new ClusterManager.OnClusterClickListener<MarkerClusterItem>() {
-            @RequiresApi(api = Build.VERSION_CODES.N)
-            @Override
-            public boolean onClusterClick(final Cluster<MarkerClusterItem> cluster) {
-                cluster.getItems().forEach(new Consumer<MarkerClusterItem>() {
-                    @Override
-                    public void accept(final MarkerClusterItem markerClusterItem) {
-                        mClusterManager.removeItem(markerClusterItem);
-                        tencentMap.moveCamera(CameraUpdateFactory.newLatLngZoom(tencentMap.getCameraPosition().target, 16f));
-                        markerItems.stream().filter(new Predicate<Marker>() {
-                            @Override
-                            public boolean test(Marker marker) {
-                                return marker.getPosition().longitude == markerClusterItem.getPosition().longitude
-                                        && marker.getPosition().latitude == markerClusterItem.getPosition().latitude;
-                            }
-                        }).collect(Collectors.<Marker>toList()).get(0).setVisible(true);
-                    }
-                });
-                return true;
-            }
-        });
-
     }
+
 
     private void findCurrentViewPoint31() {
         if (mIsClean && !showbdTcbt && !showqttc) {
@@ -432,21 +390,23 @@ public class MainActivity extends FragmentActivity {
         for (int i = 0; i < latLngs.size(); i++) {
             LatLng latLng;
             try {
-                latLng = new LatLng(Double.parseDouble(latLngs.get(i).getDzwd()),
-                        Double.parseDouble(latLngs.get(i).getDzjd()));
+                latLng = new LatLng(latLngs.get(i).getDzwdValue(), latLngs.get(i).getDzjdValue());
             } catch (Exception e) {
                 continue;
             }
             if (!polygonCon(latLng)) {
                 continue;
             }
+
             Marker marker = tencentMap.addMarker(new MarkerOptions()
                     .tag(latLngs.get(i))
                     .position(new LatLng(latLngs.get(i).getDzwdValue(), latLngs.get(i).getDzjdValue()))
                     .anchor(1, 1)
                     .icon(BitmapDescriptorFactory.fromResource(R.drawable.gdsxt_32)));
+            lightItems.add(marker);
             marker.showInfoWindow();// 设置默认显示一个infoWindow
         }
+
     }
 
     private void findCurrentViewPoint51() {
@@ -454,16 +414,9 @@ public class MainActivity extends FragmentActivity {
             tencentMap.clearAllOverlays();
         }
         for (int i = 0; i < latLngs2.size(); i++) {
-            LatLng latLng;
-            try {
-                latLng = new LatLng(Double.parseDouble(latLngs2.get(i).getWd()),
-                        Double.parseDouble(latLngs2.get(i).getJd()));
-            } catch (Exception e) {
+/*            if (!polygonCon(latLng)) {
                 continue;
-            }
-            if (!polygonCon(latLng)) {
-                continue;
-            }
+            }*/
             if (showqttc && judgeTcContain(latLngs2.get(i).getFlid())) {
                 Log.e("sadasd", i + "");
                 Marker marker = tencentMap.addMarker(new MarkerOptions()
@@ -471,7 +424,7 @@ public class MainActivity extends FragmentActivity {
                         .position(new LatLng(latLngs2.get(i).getDzwdValue(), latLngs.get(i).getDzjdValue()))
                         .anchor(1, 1)
                         .icon(BitmapDescriptorFactory.fromResource(getImage(latLngs2.get(i).getFlid()))));
-//            marker.showInfoWindow();// 设置默认显示一个infoWindow
+                // marker.showInfoWindow();// 设置默认显示一个infoWindow
             }
         }
     }
@@ -547,6 +500,26 @@ public class MainActivity extends FragmentActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
+            case R.id.action_show_marker://显示/隐藏标点
+//                showbdTcbt = false;
+//                showbdTctb = false;
+                if (isShow) {
+                    isShow = false;
+                    tencentMap.clearAllOverlays();
+                    if (item.getTitle().equals("隐藏标点")) {
+                        item.setTitle("显示标点");
+                    }
+                } else {
+                    isShow = true;
+                    findCurrentViewPoint3();
+                    if (item.getTitle().equals("显示标点")) {
+                        item.setTitle("隐藏标点");
+                    }
+                    mClusterManager.cluster();
+                }
+                tencentMap.moveCamera(CameraUpdateFactory.newLatLngZoom(tencentMap.getCameraPosition().target, tencentMap.getCameraPosition().zoom));
+                break;
+
             case R.id.action_show_heat://显示或者取消显示热力图
                 if (nodes.isEmpty()) {
                     Toast.makeText(this, "没有可用坐标数据", Toast.LENGTH_SHORT).show();
@@ -574,23 +547,7 @@ public class MainActivity extends FragmentActivity {
 
                 }
                 break;
-            case R.id.action_show_marker://显示/隐藏标点
-//                showbdTcbt = false;
-//                showbdTctb = false;
-                if (isShow) {
-                    isShow = false;
-                    tencentMap.clearAllOverlays();
-                    if (item.getTitle().equals("隐藏标点")) {
-                        item.setTitle("显示标点");
-                    }
-                } else {
-                    isShow = true;
-                    findCurrentViewPoint3();
-                    if (item.getTitle().equals("显示标点")) {
-                        item.setTitle("隐藏标点");
-                    }
-                }
-                break;
+
             case R.id.action_show_light:
 //                showbdTcbt = false;
 //                showbdTctb = false;
@@ -618,12 +575,8 @@ public class MainActivity extends FragmentActivity {
 //                showbdTcbt = false;
 //                showbdTctb = false;
                 showMultiChoiceItems2();
-
-
                 return true;
         }
-
-
         return super.onOptionsItemSelected(item);
     }
 
@@ -657,24 +610,20 @@ public class MainActivity extends FragmentActivity {
                         }
 
                         // 用户至少选择了一个列表项
-
                         SparseBooleanArray array = lv.getCheckedItemPositions();
-
-
                         if (array.size() > 0) {
                             tencentMap.clearAllOverlays();
                             mIsClean = false;
                             showbdTcbt = array.get(0);
-                            if (array.get(0)) {
-                                showbdTcbt = true;
+                            if (showbdTcbt) {
                                 findCurrentViewPoint3();
                             }
                             showbdTctb = array.get(1);
-                            if (array.get(1)) {
-                                showbdTctb = true;
+                            if (showbdTctb) {
                                 findCurrentViewPoint31();
                             }
                             mIsClean = true;
+                            tencentMap.clearAllOverlays();
                         }
 //                        if (lv.getCheckedItemPositions().size() > 0) {
 //                            findCurrentViewPoint3();
@@ -684,13 +633,14 @@ public class MainActivity extends FragmentActivity {
                         else if (lv.getCheckedItemPositions().size() <= 0) {
                             tencentMap.clearAllOverlays();
                         }
+                        tencentMap.moveCamera(CameraUpdateFactory.newLatLngZoom(tencentMap.getCameraPosition().target, tencentMap.getCameraPosition().zoom + 0.2f));
                     }
                 }).setNegativeButton("取消", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
                         showbdTcbt = false;
                         showbdTctb = false;
-                        tencentMap.clearAllOverlays();
+                        //tencentMap.clearAllOverlays();
                     }
                 }).create();
         lv = builder.getListView();
@@ -720,7 +670,6 @@ public class MainActivity extends FragmentActivity {
 
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-
 //                        String s = "您选择了：";
 //                        // 扫描所有的列表项，如果当前列表项被选中，将列表项的文本追加到s变量中。
 //                        for (int i = 0; i < province.length; i++) {
@@ -787,6 +736,7 @@ public class MainActivity extends FragmentActivity {
 //                            new AlertDialog.Builder(MainActivity.this)
 //                                    .setMessage("您未选择任何省份").show();
                         }
+                        tencentMap.moveCamera(CameraUpdateFactory.newLatLngZoom(tencentMap.getCameraPosition().target, tencentMap.getCameraPosition().zoom + 0.2f));
                     }
                 }).setNegativeButton("取消", new DialogInterface.OnClickListener() {
                     @Override
@@ -795,13 +745,12 @@ public class MainActivity extends FragmentActivity {
                             province1[i].flg = false;
                         }
                         showqttc = false;
-                        tencentMap.clearAllOverlays();
+                        //tencentMap.clearAllOverlays();
                     }
                 }).create();
         lv = builder.getListView();
         builder.show();
     }
-
 
     /**
      * 在服务器返回的结果中查询出当前视图区域的点 显示到地图上
@@ -886,7 +835,6 @@ public class MainActivity extends FragmentActivity {
         return latLngBounds.contains(latLng);
     }
 
-
     // 初始化经纬度保存
     private void initMap() {
         tencentMap.enableMultipleInfowindow(true);
@@ -954,14 +902,14 @@ public class MainActivity extends FragmentActivity {
 
             @Override
             public void onCameraChangeFinished(CameraPosition cameraPosition) {
-                new Handler().postDelayed(new Runnable() {
+/*                new Handler().postDelayed(new Runnable() {
                     @Override
                     public void run() {
                         if (isShow) {
-                            findCurrentViewPoint3();//延迟加载
+                            findCurrentViewPoint3(false);//延迟加载
                         }
                         if (showbdTcbt) {
-                            findCurrentViewPoint3();
+                            findCurrentViewPoint3(false);
                         }
                         if (showbdTctb) {
                             findCurrentViewPoint31();
@@ -971,7 +919,7 @@ public class MainActivity extends FragmentActivity {
                         }
                         //findCurrentViewPoint(); 初始化会走到这里
                     }
-                }, 200);
+                }, 200);*/
             }
         });
     }
@@ -995,7 +943,6 @@ public class MainActivity extends FragmentActivity {
             tencentMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(22.5178400000, 113.0404500000), 15));
         else
             tencentMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(22.512739, 113.06661500), 15));
-
     }
 
 //    /**
@@ -1040,7 +987,6 @@ public class MainActivity extends FragmentActivity {
         }
 
     }
-
 
     @Override
     protected void onDestroy() {
